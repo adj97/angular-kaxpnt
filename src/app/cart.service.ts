@@ -27,6 +27,7 @@ export class CartService {
 
   removeFromCart(itemToDelete) {
     this.items = this.items.filter(item => item !== itemToDelete);
+    return this.items;
   }
 
   getShippingPrices() {
