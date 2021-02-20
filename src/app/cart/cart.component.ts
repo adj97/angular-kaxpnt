@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 import { CartService } from '../cart.service';
 
@@ -10,8 +11,14 @@ import { CartService } from '../cart.service';
 export class CartComponent implements OnInit {
   items = this.cartService.getItems();
 
+  checkoutForm = this.formBuilder.group({
+    name: '',
+    address: ''
+  });
+
   constructor(
-    private cartService: CartService
+    private cartService: CartService,
+    private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
@@ -21,6 +28,13 @@ export class CartComponent implements OnInit {
     this.cartService.removeFromCart(item);
     window.alert('This product has been removed from your cart!');
     this.items = this.cartService.getItems();
+  }
+
+  onSubmit(): void {
+    // Process checkout data here
+    this.items = this.cartService.clearCart();
+    console.warn('Your order has been submitted', this.checkoutForm.value);
+    this.checkoutForm.reset();
   }
 
 }
