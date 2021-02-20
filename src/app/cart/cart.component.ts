@@ -20,6 +20,7 @@ export class CartComponent implements OnInit {
   removeFromCart(item) {
     this.cartService.removeFromCart(item);
     window.alert('This product has been removed from your cart!');
+    this.items = this.cartService.getItems();
   }
 
 }
